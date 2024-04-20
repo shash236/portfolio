@@ -1,16 +1,31 @@
 <script>
-	import { afterUpdate } from  'svelte';
+	import { onMount,afterUpdate } from  'svelte';
 	import { tweened } from 'svelte/motion';
 	import { cubicOut } from 'svelte/easing';
 	import Message from './Message.svelte'
+    import { writable } from 'svelte/store';
 		
 	let name = 'Shashwatik Sinha';
 	let opacity = 0;
+	
+	function isMobileDevice() {
+		var aspectRatio = window.innerHeight / window.innerWidth;
+		var threshold = 0.70;
+		console.log(aspectRatio);
+		return aspectRatio > threshold;
+	}
 	
 	let fontSize = tweened(0, {
 		duration: 3000,
 		easing : cubicOut
 	});
+
+	onMount(() => {
+		if(isMobileDevice()) {
+			fontSize.set(6,{ duration: 0});
+		}
+	});
+	
 
 	afterUpdate(() => {
 		setTimeout(()=>{
