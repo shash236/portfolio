@@ -5,6 +5,7 @@
 	import Message from './Message.svelte'
 		
 	let name = 'Shashwatik Sinha';
+	let opacity = 0;
 	
 	let fontSize = tweened(0, {
 		duration: 3000,
@@ -12,11 +13,14 @@
 	});
 
 	afterUpdate(() => {
-		fontSize.set(6);
+		setTimeout(()=>{
+			opacity = 1;
+			fontSize.set(6);
+		},500);
 	});
 
 </script>
-<div class="flex-container jersey-10-regular">
+<div class="flex-container" style="opacity : {opacity}">
     <p class="name" style="font-size: {$fontSize + 'em'}">{name}</p>
     <div class="links">
             <a class = "link wiggle" href="/shashwatik_resume.pdf" target="_blank" rel="noopener noreferrer">Resume</a>
@@ -41,12 +45,6 @@
 		padding: 3em;
 		text-align: center;
         color: white;
-	}
-
-	.jersey-10-regular {
-	  font-family: "Jersey 10", sans-serif;
-	  font-weight: 400;
-	  font-style: normal;
 	}
 
 	.name:hover {
